@@ -110,19 +110,124 @@ const library = [
 //Escribe aquí tu solución / escriviu aquí la vostra solució:
 /********************* EX1 */
 
+class magicBook {
+  constructor(title, author, genre, yearPublished, available){
+    this.title = title;
+    this.author = author;
+    this.genre = genre;
+    this.yearPublished = yearPublished
+    this.available = available;
+
+    this.magicSeal = magicBook.generateMagicSeal(title,author);
+  }
+  
+  toggleAvailability(){
+    if(this.available == true){
+      this.available = false;
+    }else{
+      this.available = true;
+    }
+
+  }
+
+  static generateMagicSeal (title, author){
+
+    let firs2title = title[0] + title[1];
+    let las2author = author.slice(-2); 
+
+    let blend = firs2title + las2author;
+    let finalText = blend.toUpperCase()+"MAGIC";
+    
+    return finalText
+
+
+  }
+
+
+}
+
+
 /********************* EX2 */
+
+const mysticalBooks = library.map(book => new magicBook (book.title, book.author, book.genre, book.yearPublished, book.available));
+
 
 /********************* EX3 */
 
+const fantasyBooksAfter1950 = library.filter(book => book.genre =="Fantasy" && book.yearPublished > 1950);
+
+
 /********************* EX4 */
+
+function recursiveOracle(library, index = 0){
+
+  if(index >= library.lenght){
+    return 0;
+
+  }
+
+  const disponible = library[index].available ? 1 : 0;
+
+  return disponible + recursiveOracle(library, index +1);
+
+}
 
 /********************* EX5 */
 
+function compareBooks(library){
+
+  function findMostRecentBook(library){
+    let mostrecent = library[0];
+
+    for (let book of library){
+      
+     mostrecent =  (book.yearPublished > mostrecent.yearPublished) ? book : mostrecent;
+
+    }
+    return mostrecent
+
+}
+
+  function findLongestTitleBook(library){
+    //encontrar el libro con el nombre mas largo
+  } 
+
+  return [findMostRecentBook(library), findLongestTitleBook(library)];
+
+
+}
+
 /********************* EX6 */
+
+function earliestPublication(...books){
+
+  let earlyPublication = books[0];
+
+  for(let book of books){
+
+    earlyPublication = (book.yearPublished < earlyPublication.yearPublished) ? book : earlyPublication; 
+
+  }
+
+  return earlyPublication;
+
+}
 
 /********************* EX7 */
 
+const clonedLibrary = [...library];
+
+const newBook = new magicBook("The Invisible Man", "H.G. Wells", "Science Fiction", 1897, true);
+
+clonedLibrary.push(newBook);
+
+
 /********************* EX8 */
+
+function invokeSerialization (book){
+  const serilizedBook = JSON.stringify(book);
+  return serilizedBook;
+}
 
 /**
  * TEST
